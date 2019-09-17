@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <!-- comment like this  -->
+    <title>Twitter Off! - {{title}}</title>
+    <link rel="stylesheet" href="https://unpkg.com/picnic"/>
+  </head>
+  <body>
+    <h1>Twitter Off!</h1>
+      <p> A twitter competition! </p>
+      <u1>
+        {% for user in users %}
+        <li> {{user.name}} </li>
+        {% endfor %}
+      </u1>
+  </body>
+</html>

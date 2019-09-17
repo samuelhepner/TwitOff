@@ -1,14 +1,14 @@
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
+DB = SQLAlchemy()
 
 
-class User(db.Model):
+class User(DB.Model):
     # Twitter users that we analyze
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(15), nullable=False)
+    id = DB.Column(DB.Integer, primary_key=True)
+    name = DB.Column(DB.String(15), nullable=False)
 
 
-class Tweet(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.Unicode(280))
+class Tweet(DB.Model):
+    id = DB.Column(DB.Integer, primary_key=True)
+    text = DB.Column(DB.Unicode(280))
