@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request
 from .models import DB, User
 from decouple import config
+from .twitter import pullUsersAndTweets
 
 
 # make our own app factory
@@ -26,5 +27,12 @@ def create_app():
     def root():
         users = User.query.all()
         return render_template('base.html', title='Home', users=users)
+
+    # create the route
+    @app.route('/getUsersAndTweets')
+    # define the function
+    def getUsersAndTweets():
+        pullUsersAndTweets('selenagomez')
+        return 'Twitter user(s) and tweets loaded!'
 
     return app
