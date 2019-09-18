@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 from .models import DB, User
 from decouple import config
 from .twitter import add_or_update_user
+from .predict import predict_user
 
 
 # make our own app factory
@@ -35,15 +36,25 @@ def create_app():
         except Exception as e:
             message = 'Error adding {}: {}'.format(name, e)
             tweets = []
-        return render_template('user.html', title=name, tweets=tweets,
-                               message=message)
+        return render_template('user.html', title=name, message=message)
 
-    # # create the route
-    # @app.route('/getUsersAndTweets')
-    # # define the function
-    # def getUsersAndTweets():
-    #     pullUsersAndTweets('selenagomez')
-    #     return 'Twitter user(s) and tweets loaded!'
+    @app.route('/compare', methods=['POST'])
+    def compare(message=''):
+        user1, user2 = sorted([request.values['user1'],
+                               request.values['user2']])
+        if user1 == user2:
+            message = 'I cannot compare a user to themselves.'
+        else:
+            tweet_text = request.values['tweet_text']
+            confidence = int(predict_user(user1, user2, tweet_text) * 100)
+            if confidence >= 50:
+                message = f"""'{tweet_text}' is more likely to be said by {user1}
+                           , with {confidence}% confidence."""
+            else:
+                message = f"""'{tweet_text}' is more likely to be said by {user2}
+                           , with {100 - confidence}% confidence."""
+        return render_template('prediction.html', title='Prediction',
+                               message=message)
 
     @app.route('/reset')
     def reset():
