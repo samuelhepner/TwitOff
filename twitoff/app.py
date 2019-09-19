@@ -31,7 +31,7 @@ def create_app():
         try:
             if request.method == 'POST':
                 add_or_update_user(name)
-                message = 'User {} successfully added!'.format(name)
+                message = 'User {} has been successfully added!'.format(name)
             tweets = User.query.filter(User.name == name).one().tweets
         except Exception as e:
             message = 'Error adding {}: {}'.format(name, e)
@@ -51,8 +51,8 @@ def create_app():
                 message = f"""'{tweet_text}' is more likely to be said by {user1}
                            , with {confidence}% confidence."""
             else:
-                message = f"""'{tweet_text}' is more likely to be said by {user2}
-                           , with {100 - confidence}% confidence."""
+                message = f"""'{tweet_text}' is more likely to be said by {user2},
+                            with {100 - confidence}% confidence."""
         return render_template('prediction.html', title='Prediction',
                                message=message)
 
