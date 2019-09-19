@@ -12,6 +12,7 @@ tweepy = "*"
 basilica = "*"
 python-dotenv = "*"
 scikit-learn = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.7"
