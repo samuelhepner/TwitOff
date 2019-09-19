@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 numpy = "*"
 sklearn = "*"
+gunicorn = "*"
+fcntl = "*"
 
 [requires]
 python_version = "3.7"
