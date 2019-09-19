@@ -6,15 +6,17 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+basilica = "*"
+python-decouple = "*"
 flask = "*"
 flask-sqlalchemy = "*"
 gunicorn = "*"
+numpy = "*"
 tweepy = "*"
-basilica = "*"
 python-dotenv = "*"
-scikit-learn = "*"
 psycopg2 = "*"
 pipfile = "*"
+scikit-learn = "*"
 
 [requires]
 python_version = "3.7"
