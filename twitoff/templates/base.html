@@ -4,8 +4,8 @@
     <title>Twitter Off! - {{ title }}</title>
     <link rel="stylesheet" href="https://unpkg.com/picnic"/>
   </head>
-  <body>
-    <nav>
+  <body style="background-color:#A9A9A9;">
+    <nav style="background-color:#008011;">
       <a href="/" class="brand"><span>Twitter Off!</span></a>
 
       <!-- responsive-->
@@ -13,40 +13,42 @@
       <label for="bmenub" class="burger pseudo button">Menu</label>
 
       <div class="menu">
-        <a href="/reset" class="button warning">Reset Users</a>
+        <a href="/reset" class="button warning" style="background-color:#000000;color:#bfbfbf">Reset Users</a>
       </div>
       <div class="menu">
-        <a href="/" class="button warning">Home</a>
+        <a href="/" class="button warning" style="background-color:#000000;color:#bfbfbf">Go Home?</a>
       </div>
     </nav>
 
-    <article class="flex two" style="padding: 3em 1em;">
+    <article class="flex two" style="padding: 3em 1em;background-color:#A9A9A9;">
       {% block content %}
       <div>
         <h1>{{ title }}</h1>
         <form action="/compare" method="post">
-          <select name="user1">
+          <select name="user1" style="background-color:#bfbfbf;">
             {% for user in users %}
             <option value="{{ user.name }}">{{ user.name }}</option>
             {% endfor %}
           </select>
-          <select name="user2">
+          <select name="user2" style="background-color:#bfbfbf;">
             {% for user in users %}
             <option value="{{ user.name }}">{{ user.name }}</option>
             {% endfor %}
           </select>
-          <input type="text" name="tweet_text" placeholder="Tweet text to predict">
+          <input type="text" name="tweet_text" placeholder="Tweet text to predict" style="background-color:#999999;">
           <input type="submit" value="Compare Users">
+          <p>{{ message }}</p>
         </form>
       </div>
       <div>
         <h2>Users</h2>
         {% for user in users %}
-        <a href="/user/{{ user.name }}"><span class="stack">{{ user.name }}</span></a>
+        <a href="/user/{{ user.name }}"><span class="stack">{{ user.name }}></span></a>
         {% endfor %}
         <form action="/user" method="post">
-          <input type="text" name="user_name" placeholder="User to add">
+          <input type="text" name="user_name" placeholder="User to add" style="background-color:#999999;">
           <input type="submit" value="Add User">
+          <p>{{ message }}</p>
         </form>
       </div>
       {% endblock %}

@@ -1,5 +1,5 @@
 # My app
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from .models import DB, User
 from decouple import config
 from .twitter import add_or_update_user
@@ -27,16 +27,17 @@ def create_app():
     @app.route('/user', methods=['POST'])
     @app.route('/user/<name>', methods=['GET'])
     def user(name=None, message=''):
+        users = User.query.all()
         name = name or request.values['user_name']
         try:
             if request.method == 'POST':
                 add_or_update_user(name)
-                message = 'User {} has been successfully added!'.format(name)
+                message = 'User @{} has been successfully added!'.format(name)
             tweets = User.query.filter(User.name == name).one().tweets
         except Exception as e:
-            message = 'Error adding {}: {}'.format(name, e)
+            message = 'Error adding @{}: {}'.format(name, e)
             tweets = []
-        return render_template('user.html', title=name, message=message)
+        return redirect("https://twitoff-samh3pn3r.herokuapp.com/")
 
     @app.route('/compare', methods=['POST'])
     def compare(message=''):
@@ -48,8 +49,8 @@ def create_app():
             tweet_text = request.values['tweet_text']
             confidence = int(predict_user(user1, user2, tweet_text) * 100)
             if confidence >= 50:
-                message = f"""'{tweet_text}' is more likely to be said by {user1}
-                           , with {confidence}% confidence."""
+                message = f"""'{tweet_text}' is more likely to be said by
+                {user1}, with {confidence}% confidence."""
             else:
                 message = f"""'{tweet_text}' is more likely to be said by {user2},
                             with {100 - confidence}% confidence."""
