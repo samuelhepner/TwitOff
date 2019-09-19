@@ -6,10 +6,12 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-numpy = "*"
-sklearn = "*"
-gunicorn = "*"
-fcntl = "*"
+flask = "*"
+flask-sqlalchemy = "*"
+tweepy = "*"
+basilica = "*"
+python-dotenv = "*"
+scikit-learn = "*"
 
 [requires]
 python_version = "3.7"
